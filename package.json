@@ -3,13 +3,22 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "test:connection": "node src/testConnection.js",
-    "load:cognodb": "node src/loaders/loadCognoDB.js",
-    "benchmark:cognodb": "node src/benchmarks/runBenchmarks.js",
-     "benchmark:cognodb:mixed": "node src/benchmarks/mixedWorkload.js"
-  },
+"scripts": {
+  "test:connection": "node src/testConnection.js",
+  "test:neo4j": "node src/testNeo4jConnection.js",
+
+  "load:cognodb": "node src/loaders/loadDatabase.js cognodb",
+  "load:neo4j": "node src/loaders/loadDatabase.js neo4j",
+  "load:memgraph": "node src/loaders/loadDatabase.js memgraph",
+
+  "benchmark:cognodb": "node src/benchmarks/runDatabaseBenchmarks.js cognodb",
+  "benchmark:neo4j": "node src/benchmarks/runDatabaseBenchmarks.js neo4j",
+  "benchmark:memgraph": "node src/benchmarks/runDatabaseBenchmarks.js memgraph",
+
+  "benchmark:cognodb:mixed": "node src/benchmarks/runMixedWorkload.js cognodb",
+  "benchmark:neo4j:mixed": "node src/benchmarks/runMixedWorkload.js neo4j",
+  "benchmark:memgraph:mixed": "node src/benchmarks/runMixedWorkload.js memgraph"
+},
   "keywords": [],
   "author": "",
   "license": "ISC",
