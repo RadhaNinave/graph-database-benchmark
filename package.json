@@ -3,29 +3,31 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-"scripts": {
-  "test:connection": "node src/testConnection.js",
-  "test:neo4j": "node src/testNeo4jConnection.js",
-
-  "load:cognodb": "node src/loaders/loadDatabase.js cognodb",
-  "load:neo4j": "node src/loaders/loadDatabase.js neo4j",
-  "load:memgraph": "node src/loaders/loadDatabase.js memgraph",
-
-  "benchmark:cognodb": "node src/benchmarks/runDatabaseBenchmarks.js cognodb",
-  "benchmark:neo4j": "node src/benchmarks/runDatabaseBenchmarks.js neo4j",
-  "benchmark:memgraph": "node src/benchmarks/runDatabaseBenchmarks.js memgraph",
-
-  "benchmark:cognodb:mixed": "node src/benchmarks/runMixedWorkload.js cognodb",
-  "benchmark:neo4j:mixed": "node src/benchmarks/runMixedWorkload.js neo4j",
-  "benchmark:memgraph:mixed": "node src/benchmarks/runMixedWorkload.js memgraph",
-  "test:memgraph": "node src/testMemgraphConnection.js"
-},
+  "scripts": {
+    "test:connection": "node src/testConnection.js",
+    "test:neo4j": "node src/testNeo4jConnection.js",
+    "load:cognodb": "node src/loaders/loadDatabase.js cognodb",
+    "load:neo4j": "node src/loaders/loadDatabase.js neo4j",
+    "load:memgraph": "node src/loaders/loadDatabase.js memgraph",
+    "benchmark:cognodb": "node src/benchmarks/runDatabaseBenchmarks.js cognodb",
+    "benchmark:neo4j": "node src/benchmarks/runDatabaseBenchmarks.js neo4j",
+    "benchmark:memgraph": "node src/benchmarks/runDatabaseBenchmarks.js memgraph",
+    "benchmark:cognodb:mixed": "node src/benchmarks/runMixedWorkload.js cognodb",
+    "benchmark:neo4j:mixed": "node src/benchmarks/runMixedWorkload.js neo4j",
+    "benchmark:memgraph:mixed": "node src/benchmarks/runMixedWorkload.js memgraph",
+    "test:memgraph": "node src/testMemgraphConnection.js",
+    "test:falkordb": "node src/testFalkorDBConnection.js",
+    "load:falkordb": "node src/loaders/loadFalkorDB.js",
+    "benchmark:falkordb": "node src/benchmarks/runFalkorDBBenchmarks.js",
+    "benchmark:falkordb:mixed": "node src/benchmarks/runFalkorDBMixedWorkload.js"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "type": "module",
   "dependencies": {
     "dotenv": "^17.4.2",
+    "falkordb": "^6.7.0",
     "neo4j-driver": "^6.2.0"
   }
 }
