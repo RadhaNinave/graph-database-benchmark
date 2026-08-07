@@ -17,7 +17,8 @@
 
   "benchmark:cognodb:mixed": "node src/benchmarks/runMixedWorkload.js cognodb",
   "benchmark:neo4j:mixed": "node src/benchmarks/runMixedWorkload.js neo4j",
-  "benchmark:memgraph:mixed": "node src/benchmarks/runMixedWorkload.js memgraph"
+  "benchmark:memgraph:mixed": "node src/benchmarks/runMixedWorkload.js memgraph",
+  "test:memgraph": "node src/testMemgraphConnection.js"
 },
   "keywords": [],
   "author": "",

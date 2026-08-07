@@ -66,10 +66,17 @@ export function createDatabaseAdapter(databaseKey) {
     )
   );
 
-  const executeQuery = (
-    query,
-    params = {}
-  ) => {
+  async function executeQuery(query, params = {}) {
+    if (databaseKey === "memgraph") {
+      const session = driver.session();
+
+      try {
+        return await session.run(query, params);
+      } finally {
+        await session.close();
+      }
+    }
+
     const options = config.database
       ? { database: config.database }
       : {};
@@ -79,7 +86,7 @@ export function createDatabaseAdapter(databaseKey) {
       params,
       options
     );
-  };
+  }
 
   return {
     config,
