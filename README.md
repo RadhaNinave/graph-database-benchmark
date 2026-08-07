@@ -1,6 +1,6 @@
 # Graph Database Benchmark Framework
 
-A reproducible Node.js benchmark suite comparing **CognoDB Cloud** with four other graph database platforms using the same public dataset and the same logical workloads.
+A reproducible Node.js benchmark suite comparing ****CognoDB Cloud**** with four other graph database platforms using the same public dataset and the same logical workloads.
 
 ## Databases Compared
 
@@ -12,17 +12,17 @@ A reproducible Node.js benchmark suite comparing **CognoDB Cloud** with four oth
 
 ## Dataset
 
-This project uses the **SNAP Wiki-Vote** directed graph dataset.
+This project uses the ****SNAP Wiki-Vote**** directed graph dataset.
 
 - Source: Stanford Network Analysis Project
 - Dataset page: https://snap.stanford.edu/data/wiki-Vote.html
-- Nodes: **7,115**
-- Relationships: **103,689**
+- Nodes: ****7,115****
+- Relationships: ****103,689****
 - Relationship meaning: `A -> B` means Wikipedia user A voted for user B to become an administrator
 - Graph model:
-  - Node label: `User`
-  - Node property: `id`
-  - Relationship type: `VOTED_FOR`
+  - Node label: `User`
+  - Node property: `id`
+  - Relationship type: `VOTED_FOR`
 
 The same dataset was loaded into every platform.
 
@@ -38,42 +38,42 @@ Each read workload uses:
 
 The workloads are:
 
-1. Point lookup by `User.id`
-2. Indexed/filtered range lookup
-3. 1-hop traversal
-4. 2-hop traversal
-5. 3-hop traversal
-6. Vote-count aggregation
-7. Mixed workload with:
-   - 10 concurrent clients
-   - 30-second duration
-   - 90% reads
-   - 10% writes
+1\. Point lookup by `User.id`
+2\. Indexed/filtered range lookup
+3\. 1-hop traversal
+4\. 2-hop traversal
+5\. 3-hop traversal
+6\. Vote-count aggregation
+7\. Mixed workload with:
+   - 10 concurrent clients
+   - 30-second duration
+   - 90% reads
+   - 10% writes
 
 ## Project Architecture
 
 ```text
 SNAP Wiki-Vote dataset
-        |
-        v
+        |
+        v
 Dataset parser and batch loader
-        |
-        +-----------------------------+
-        |             |               |
-        v             v               v
- Neo4j driver     FalkorDB client   PostgreSQL pg client
-        |             |               |
-        v             v               v
-CognoDB / Neo4j /  FalkorDB       Apache AGE
+        |
+        +-----------------------------+
+        |             |               |
+        v             v               v
+ Neo4j driver     FalkorDB client   PostgreSQL pg client
+        |             |               |
+        v             v               v
+CognoDB / Neo4j /  FalkorDB       Apache AGE
 Memgraph
-        |
-        v
+        |
+        v
 Shared benchmark runner
-        |
-        v
+        |
+        v
 Statistics: average, p50, p95, min, max, QPS
-        |
-        v
+        |
+        v
 JSON result files
 ```
 
@@ -207,13 +207,13 @@ These are the actual tiers and locations used during this run.
 | Platform | Nodes/s | Relationships/s | Node load (s) | Relationship load (s) | Total load (s) |
 |---|---:|---:|---:|---:|---:|
 | CognoDB | 763.23 | 872.23 | 9.32 | 118.88 | 131.74 |
-| Neo4j Aura | N/A* | N/A* | N/A* | N/A* | N/A* |
+| Neo4j Aura | 4,008.13 | 3,744.48 | 1.78 | 27.69 | 33.74 |
 | Memgraph | 2,462.97 | 2,942.65 | 2.89 | 35.24 | 39.13 |
 | FalkorDB | 2,711.18 | 1,981.93 | 2.62 | 52.32 | 55.25 |
 | Apache AGE | 50,931.77 | 3,279.67 | 0.14 | 31.62 | 32.57 |
 
 
-\* Neo4j Aura load throughput values were not captured in the uploaded benchmark files, so they are intentionally marked as N/A instead of estimated.
+
 
 ## Read Benchmark Results — p50 Latency
 
@@ -290,7 +290,7 @@ Configuration for every mixed run:
 
 ### Data loading
 
-Apache AGE produced the shortest observed total load time, followed by Memgraph and FalkorDB. Apache AGE ran locally and therefore avoided internet round trips, so its ingestion measurements should not be interpreted as a direct managed-cloud victory.
+Apache AGE produced the shortest observed total load time at 32.57 seconds, followed closely by Neo4j Aura at 33.74 seconds, Memgraph at 39.13 seconds, FalkorDB at 55.25 seconds, and CognoDB at 131.74 seconds. Apache AGE ran locally and therefore avoided internet round trips, so its ingestion measurements should not be interpreted as a direct managed-cloud victory.
 
 CognoDB had the slowest observed load in this run. The small free c0 tier and remote round trips likely contributed, but the benchmark does not isolate server execution from network latency.
 
@@ -312,55 +312,55 @@ Apache AGE's aggregation was much slower than its point and traversal workloads.
 
 ## Fairness and Limitations
 
-This benchmark is reproducible but **not perfectly hardware- or network-normalized**.
+This benchmark is reproducible but ****not perfectly hardware- or network-normalized****.
 
 Important caveats:
 
-1. The databases did not expose identical free tiers.
-2. Memgraph's trial had more CPU and RAM than CognoDB.
-3. FalkorDB ran in `ap-south-1`, closer to the client than the US-hosted platforms.
-4. Apache AGE ran locally, removing internet latency.
-5. The timings measure end-to-end latency from the Node.js client, not server-only execution time.
-6. Cloud free tiers may throttle, sleep, or experience shared-infrastructure variance.
-7. A single benchmark run cannot measure long-term variance.
-8. Apache AGE used a local Docker deployment capped at 0.5 CPU and 512 MB RAM, but this does not make its network conditions equivalent to cloud services.
-9. The `User.id` lookup path must be checked carefully per platform. The current AGE implementation should not be described as indexed unless a confirmed AGE/PostgreSQL index was created and verified.
+1\. The databases did not expose identical free tiers.
+2\. Memgraph's trial had more CPU and RAM than CognoDB.
+3\. FalkorDB ran in `ap-south-1`, closer to the client than the US-hosted platforms.
+4\. Apache AGE ran locally, removing internet latency.
+5\. The timings measure end-to-end latency from the Node.js client, not server-only execution time.
+6\. Cloud free tiers may throttle, sleep, or experience shared-infrastructure variance.
+7\. A single benchmark run cannot measure long-term variance.
+8\. Apache AGE used a local Docker deployment capped at 0.5 CPU and 512 MB RAM, but this does not make its network conditions equivalent to cloud services.
+9\. The `User.id` lookup path must be checked carefully per platform. The current AGE implementation should not be described as indexed unless a confirmed AGE/PostgreSQL index was created and verified.
 
-The results therefore describe the **observed behavior of these exact deployments**, not an absolute ranking of database engines.
+The results therefore describe the ****observed behavior of these exact deployments****, not an absolute ranking of database engines.
 
 ## Repository Structure
 
 ```text
 .
 ├── data/
-│   └── Wiki-Vote.txt
+│   └── Wiki-Vote.txt
 ├── results/
-│   └── timestamped JSON benchmark outputs
+│   └── timestamped JSON benchmark outputs
 ├── src/
-│   ├── benchmarks/
-│   │   ├── benchmarkQueries.js
-│   │   ├── benchmarkRunner.js
-│   │   ├── runDatabaseBenchmarks.js
-│   │   ├── runMixedWorkload.js
-│   │   ├── runFalkorDBBenchmarks.js
-│   │   ├── runFalkorDBMixedWorkload.js
-│   │   ├── benchmarkAgeQueries.js
-│   │   ├── runAgeBenchmarks.js
-│   │   └── runAgeMixedWorkload.js
-│   ├── config/
-│   │   ├── databases.js
-│   │   └── age.js
-│   ├── loaders/
-│   │   ├── loadDatabase.js
-│   │   ├── loadFalkorDB.js
-│   │   └── loadAgeDatabase.js
-│   ├── utils/
-│   │   └── statistics.js
-│   ├── testConnection.js
-│   ├── testNeo4jConnection.js
-│   ├── testMemgraphConnection.js
-│   ├── testFalkorDBConnection.js
-│   └── testAgeConnection.js
+│   ├── benchmarks/
+│   │   ├── benchmarkQueries.js
+│   │   ├── benchmarkRunner.js
+│   │   ├── runDatabaseBenchmarks.js
+│   │   ├── runMixedWorkload.js
+│   │   ├── runFalkorDBBenchmarks.js
+│   │   ├── runFalkorDBMixedWorkload.js
+│   │   ├── benchmarkAgeQueries.js
+│   │   ├── runAgeBenchmarks.js
+│   │   └── runAgeMixedWorkload.js
+│   ├── config/
+│   │   ├── databases.js
+│   │   └── age.js
+│   ├── loaders/
+│   │   ├── loadDatabase.js
+│   │   ├── loadFalkorDB.js
+│   │   └── loadAgeDatabase.js
+│   ├── utils/
+│   │   └── statistics.js
+│   ├── testConnection.js
+│   ├── testNeo4jConnection.js
+│   ├── testMemgraphConnection.js
+│   ├── testFalkorDBConnection.js
+│   └── testAgeConnection.js
 ├── .env.example
 ├── .gitignore
 ├── package.json
@@ -411,6 +411,6 @@ CognoDB, Neo4j, and Memgraph share the Neo4j Bolt driver. FalkorDB uses its offi
 
 ## Author
 
-**Radha Ninave**
+****Radha Ninave****
 
 GitHub: https://github.com/RadhaNinave
