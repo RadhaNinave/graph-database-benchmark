@@ -1,19 +1,29 @@
-import driver from "./config/cognodb.js";
+import { createDatabaseAdapter } from "./config/databases.js";
 
-async function testConnection() {
+async function testCognoDBConnection() {
+  let driver;
+
   try {
+    const adapter = createDatabaseAdapter("cognodb");
+
+    driver = adapter.driver;
+
     await driver.verifyConnectivity();
 
-    const result = await driver.executeQuery(`
-      RETURN "Connected successfully" AS message
+    const result = await adapter.executeQuery(`
+      RETURN "Connected to CognoDB successfully!" AS message
     `);
 
     console.log(result.records[0].get("message"));
   } catch (error) {
-    console.error("Connection failed:", error.message);
+    console.error("CognoDB connection failed:");
+    console.error(error);
+    process.exitCode = 1;
   } finally {
-    await driver.close();
+    if (driver) {
+      await driver.close();
+    }
   }
 }
 
-testConnection();
+testCognoDBConnection();
