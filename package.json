@@ -1,0 +1,21 @@
+{
+  "name": "cognodb-benchmark",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "test:connection": "node src/testConnection.js",
+    "load:cognodb": "node src/loaders/loadCognoDB.js",
+    "benchmark:cognodb": "node src/benchmarks/runBenchmarks.js",
+     "benchmark:cognodb:mixed": "node src/benchmarks/mixedWorkload.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "dependencies": {
+    "dotenv": "^17.4.2",
+    "neo4j-driver": "^6.2.0"
+  }
+}
