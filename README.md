@@ -264,35 +264,27 @@ Configuration for every mixed run:
 - write property removed after the run
 
 
-# Benchmark Charts
+## Benchmark Charts
 
-## Total Dataset Load Time
+### Total Dataset Load Time
 
 ![Total dataset load time](benchmark_charts/01_total_load_time.png)
 
----
+### Point Lookup p50 Latency
 
-## Point Lookup (p50)
+![Point lookup p50 latency](benchmark_charts/02_point_lookup_p50.png)
 
-![Point lookup](benchmark_charts/02_point_lookup_p50.png)
+### Traversal p50 Latency
 
----
+![Traversal p50 latency](benchmark_charts/03_traversal_p50.png)
 
-## Traversal (1-hop, 2-hop, 3-hop)
+### Vote Count Aggregation p50 Latency
 
-![Traversal](benchmark_charts/03_traversal_p50.png)
+![Aggregation p50 latency](benchmark_charts/04_aggregation_p50.png)
 
----
+### Mixed Workload Throughput
 
-## Vote Count Aggregation
-
-![Aggregation](benchmark_charts/04_aggregation_p50.png)
-
----
-
-## Mixed Workload Throughput
-
-![QPS](benchmark_charts/05_mixed_workload_qps.png)
+![Mixed workload QPS](benchmark_charts/05_mixed_workload_qps.png)
 
 ## Analysis
 
@@ -333,7 +325,6 @@ Important caveats:
 7. A single benchmark run cannot measure long-term variance.
 8. Apache AGE used a local Docker deployment capped at 0.5 CPU and 512 MB RAM, but this does not make its network conditions equivalent to cloud services.
 9. The `User.id` lookup path must be checked carefully per platform. The current AGE implementation should not be described as indexed unless a confirmed AGE/PostgreSQL index was created and verified.
-10. Neo4j result cells marked `TODO` must be replaced with the exact values from the saved Neo4j JSON files before submission.
 
 The results therefore describe the **observed behavior of these exact deployments**, not an absolute ranking of database engines.
 
